@@ -14,7 +14,6 @@ export const AddPost = () => {
   const { posts, tags } = useSelector(state => state.posts)
   const { id } = useParams()
   const element = posts.items.find(elem => elem._id === id)
-  console.log('element', element)
   const [image, setImage] = useState()
 
   const [value, setValue] = React.useState({
@@ -35,7 +34,6 @@ export const AddPost = () => {
       })
     }
   }, [])
-  console.log('value', value)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -55,7 +53,6 @@ export const AddPost = () => {
     const formData = new FormData()
     formData.append('image', event.target.files[0])
     const { data } = await axios.post('/upload', formData)
-    console.log('data', data)
     setImage(data.url)
     value.imageUrl = data.url
   }
