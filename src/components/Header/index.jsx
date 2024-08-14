@@ -14,7 +14,6 @@ export const Header = () => {
     if(window.confirm('Точно ар вал лаьи хьун ?')){
       const data = dispatch({type: 'auth/logout'})
       window.localStorage.removeItem('token')
-      console.log('data',data);
     }
   };
 
