@@ -33,7 +33,6 @@ export const Home = () => {
   const isPostsLoading = posts.status === 'loading'
   const isTagsLoading = posts.status === 'loading'
 
-console.log('posts.items', posts.items);
   useEffect(() => {
     dispatch(fetchPosts())
     dispatch(fetchTags())
