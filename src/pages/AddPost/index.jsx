@@ -15,7 +15,7 @@ export const AddPost = () => {
   const { id } = useParams()
   const element = posts.items.find(elem => elem._id === id)
   const [image, setImage] = useState()
-
+  const flagForDownloadImage = false
   const [value, setValue] = React.useState({
     text: '',
     title: '',
@@ -53,6 +53,7 @@ export const AddPost = () => {
     const formData = new FormData()
     formData.append('image', event.target.files[0])
     const { data } = await axios.post('/upload', formData)
+    flagForDownloadImage = true
     setImage(data.url)
     value.imageUrl = data.url
   }
@@ -63,6 +64,7 @@ export const AddPost = () => {
       ...prev,
       imageUrl: ''
     }))
+    flagForDownloadImage = false
   }
 
   const onChangeText = React.useCallback(value => {
@@ -137,7 +139,7 @@ export const AddPost = () => {
         size='large'
         onClick={() => inputFileRef.current.click()}
       >
-        { !image && 'Изображение загружается !' || image && 'Изображение загрузился !' || 'Загрузить фото'}
+        { !flagForDownloadImage && 'Загрузить фото' || flagForDownloadImage && !image && 'Изображение загружается !' || image && 'Изображение загрузился !'}
       </Button>
       <input
         ref={inputFileRef}
