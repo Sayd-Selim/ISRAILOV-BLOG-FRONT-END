@@ -67,6 +67,7 @@ export const Registration = () => {
           error={state.success}
           helperText={state.message}
           {...register('fullName', { required: 'Это поле обязательно !' })}
+          autoComplete='off'
         />
         <TextField
           className={styles.field}
@@ -76,6 +77,7 @@ export const Registration = () => {
           helperText={state.message}
           type='email'
           {...register('email', { required: 'Это поле обязательно !' })}
+          autoComplete='off'
         />
         <TextField
           className={styles.field}
@@ -85,6 +87,7 @@ export const Registration = () => {
           helperText={state.message}
           // type='password'
           {...register('password', { required: 'Это поле обязательно !' })}
+          autoComplete='off'
         />
         <Button size='large' variant='contained' fullWidth type='submit'>
           Зарегистрироваться

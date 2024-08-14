@@ -80,6 +80,7 @@ export const Login = () => {
           {...register('email', { required: 'Укажите почту' })}
           type='email'
           fullWidth
+          autoComplete='off'
         />
         <TextField
           className={styles.field}
@@ -88,6 +89,7 @@ export const Login = () => {
           error={state.success || formState.errors.password}
           helperText={state.message || formState.errors.password?.message}
           {...register('password', { required: 'Укажите пароль' })}
+          autoComplete='off'
         />
         <Button size='large' variant='contained' fullWidth type='submit'>
           Войти
