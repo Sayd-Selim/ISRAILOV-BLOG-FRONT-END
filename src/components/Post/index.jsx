@@ -50,9 +50,6 @@ export const Post = ({
   const {data} = useSelector(state => state.auth)
   const isAuth = Boolean(data)
   const dispatch = useDispatch()
-  if(imageUrl){
-    console.log('imageUrl',imageUrl);
-  }
 
 
   const onClickRemove = async (_id) => {
@@ -61,11 +58,6 @@ export const Post = ({
       console.log('reternedAction',reternedAction);
     }
   };
-
-  const onCLickEdit = () => {
-  // console.log('data',data);    
-  // console.log('_id',_id);    
- }
 
 
 
@@ -79,7 +71,7 @@ export const Post = ({
       {isEditable && (
         <div className={styles.editButtons}>
           <Link to={`/posts/${_id}/edit`}>
-            <IconButton color="primary" onClick={() => onCLickEdit()}>
+            <IconButton color="primary">
               <EditIcon />
             </IconButton>
           </Link>
