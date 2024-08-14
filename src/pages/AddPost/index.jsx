@@ -137,7 +137,7 @@ export const AddPost = () => {
         size='large'
         onClick={() => inputFileRef.current.click()}
       >
-        Загрузить превью
+        { !image && 'Изображение загружается !' || image && 'Изображение загрузился !' || 'Загрузить фото'}
       </Button>
       <input
         ref={inputFileRef}
