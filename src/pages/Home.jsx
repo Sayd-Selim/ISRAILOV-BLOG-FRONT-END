@@ -67,7 +67,10 @@ export const Home = () => {
                 viewsCount={obj.viewsCount}
                 commentsCount={3}
                 tags={obj.tags}
-                isEditable={ data.email && data.email === 'iftah_abwab@mail.ru' || obj.user?._id === data?._id}
+                isEditable={
+                  data?.email === 'iftah_abwab@mail.ru' ||
+                  obj.user?._id === data?._id
+                }
               />
             )
           )}
