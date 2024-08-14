@@ -15,7 +15,7 @@ export const AddPost = () => {
   const { id } = useParams()
   const element = posts.items.find(elem => elem._id === id)
   const [image, setImage] = useState()
-  const flagForDownloadImage = false
+  const [flagForDownloadImage, setFlagForDownloadImage] = useState(false)
   const [value, setValue] = React.useState({
     text: '',
     title: '',
@@ -53,9 +53,9 @@ export const AddPost = () => {
     const formData = new FormData()
     formData.append('image', event.target.files[0])
     const { data } = await axios.post('/upload', formData)
-    flagForDownloadImage = true
     setImage(data.url)
     value.imageUrl = data.url
+    setFlagForDownloadImage(true)
   }
   //  1)
   const onClickRemoveImage = () => {
@@ -64,7 +64,7 @@ export const AddPost = () => {
       ...prev,
       imageUrl: ''
     }))
-    flagForDownloadImage = false
+    setFlagForDownloadImage(false)
   }
 
   const onChangeText = React.useCallback(value => {
