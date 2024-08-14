@@ -52,10 +52,10 @@ export const AddPost = () => {
   const handleChangeFile = async event => {
     const formData = new FormData()
     formData.append('image', event.target.files[0])
+    setFlagForDownloadImage(true)
     const { data } = await axios.post('/upload', formData)
     setImage(data.url)
     value.imageUrl = data.url
-    setFlagForDownloadImage(true)
   }
   //  1)
   const onClickRemoveImage = () => {
