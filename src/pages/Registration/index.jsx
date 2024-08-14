@@ -21,9 +21,9 @@ export const Registration = () => {
   */
   const { register, formState, handleSubmit } = useForm({
     defaultValues: {
-      fullName: 'Сайд-Селим',
-      email: 'saydselim-israilov@mail.ru',
-      password: '123456'
+      fullName: '',
+      email: '',
+      password: ''
     }
   })
   const dispatch = useDispatch()

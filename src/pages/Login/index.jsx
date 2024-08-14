@@ -19,8 +19,8 @@ export const Login = () => {
   const dispatch = useDispatch()
   const { register, handleSubmit, setError, formState } = useForm({
     defaultValues: {
-      email: 'saydselim-israilov@mail.ru',
-      password: '123456'
+      email: '',
+      password: ''
     },
     mode: 'onChange'
   })
