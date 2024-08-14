@@ -13,32 +13,24 @@ import axios from '../axios';
 */
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     const {data} = await axios.get('/posts')
-    // console.log('fetchPosts_data',data);
     return data
 })
 
 export const fetchSendPosts = createAsyncThunk('posts/fetchSendPosts', async (paramsFromPost) => {
     const {data} = await axios.post('/posts', paramsFromPost)
-    console.log('data', data);
     return data
 })
 
 
-// export const fetchUpdatePosts =  createAsyncThunk('posts/fetchUpdatePosts', async ({id, value}) => {
-//     const {data} = await axios.patch(`/posts/${id}/edit`,value)
-//     // console.log('datadatadatadatadatadatadata',value);
-//     return data
-// })
 
 export const fetchDeleteOnePost = createAsyncThunk('posts/fetchDeleteOnePost', async (idFromPost) => {
     const {data} = await axios.delete(`/posts/${idFromPost}`)
-    console.log('fetchDeleteOnePost_data',idFromPost);
     return data
 })
 
 export const fetchTags = createAsyncThunk('posts/fetchTags', async () => {
     const {data} = await axios.get('/tags')
-    return data
+    return data.join().split(',')
 })
 
 
