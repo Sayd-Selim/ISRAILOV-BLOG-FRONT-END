@@ -57,7 +57,12 @@ export const AddPost = () => {
     value.imageUrl = data.url
   }
   //  1)
-  const onClickRemoveImage = () => {}
+  const onClickRemoveImage = () => {
+    setValue(prev => ({
+      ...prev,
+      imageUrl: ''
+    }))
+  }
 
   const onChangeText = React.useCallback(value => {
     setValue(prev => ({
