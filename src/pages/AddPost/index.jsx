@@ -58,6 +58,7 @@ export const AddPost = () => {
   }
   //  1)
   const onClickRemoveImage = () => {
+    setImage('')
     setValue(prev => ({
       ...prev,
       imageUrl: ''
