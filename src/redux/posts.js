@@ -25,6 +25,7 @@ export const fetchSendPosts = createAsyncThunk('posts/fetchSendPosts', async (pa
     const {
         data
     } = await axios.post('/posts', paramsFromPost)
+    console.log('fetchSendPosts_data',data);
     return data
 })
 
@@ -32,6 +33,8 @@ export const fetchSendPosts = createAsyncThunk('posts/fetchSendPosts', async (pa
 export const fetchFromAdmin = createAsyncThunk('posts/fetchFromAdmin', async (dataFromAdmin) => {
 
     const {data} = await axios.patch(`/posts/${dataFromAdmin.element._id}/edit`, dataFromAdmin)
+    console.log('fetchFromAdmin',data);
+
     return data
 
 })
