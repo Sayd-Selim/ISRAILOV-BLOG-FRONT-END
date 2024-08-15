@@ -84,7 +84,7 @@ export const Post = ({
         <img
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
           src={`${process.env.REACT_APP_API_URL}${imageUrl}`}
-          alt={title}
+          alt='Изображение не загружено !'
         />
       )}
       <div className={styles.wrapper}>
