@@ -35,8 +35,12 @@ export const Home = () => {
 
 
   useEffect(() => {
-    dispatch(fetchPosts())
-    dispatch(fetchTags())
+    try {
+      dispatch(fetchPosts())
+      dispatch(fetchTags())
+    } catch (error) {
+      console.error(error)
+    }
   }, [])
 
 

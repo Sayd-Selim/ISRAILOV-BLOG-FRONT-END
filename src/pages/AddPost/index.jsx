@@ -7,12 +7,17 @@ import axios from '../../axios'
 import 'easymde/dist/easymde.min.css'
 import styles from './AddPost.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchSendPosts, fetchUpdatePosts } from '../../redux/posts'
+import {
+  fetchFromAdmin,
+  fetchSendPosts,
+  fetchUpdatePosts
+} from '../../redux/posts'
 import { useNavigate, useParams } from 'react-router-dom'
 // import logo from '../../../../'
 
 export const AddPost = () => {
   const { posts, tags } = useSelector(state => state.posts)
+  const { data } = useSelector(state => state.auth)
   const { id } = useParams()
   const element = posts.items.find(elem => elem._id === id)
   const [image, setImage] = useState()
@@ -58,8 +63,7 @@ export const AddPost = () => {
     setImage(data.url)
     value.imageUrl = data.url
   }
-  
-  
+
   const onClickRemoveImage = () => {
     setImage('')
     setValue(prev => ({
@@ -92,33 +96,44 @@ export const AddPost = () => {
 
   const SendPostInServer = async (value, id) => {
     // 1) Когда Я нажимаю на иконку редактирования, то попадаю на станицу `написать статью` с данными этой статьи + ее id, почему ?
-    // 2) потому что , при нажатие на редактирование, Я беру все посты из Redux-хранилища + 
+    // 2) потому что , при нажатие на редактирование, Я беру все посты из Redux-хранилища +
     // или можно сказать из базы данных, и импортирую их тут в компоненте `написать статью` чтобы отрендарить их заного
-    // то есть, Я при нажатие на редактирование Я тут получаю id поста из URL адресса поисковике через useParams() 
+    // то есть, Я при нажатие на редактирование Я тут получаю id поста из URL адресса поисковике через useParams()
     // и ишу в постах из хранилища тош пост у которого есть id из URL, тогда мне возвращается объект с этой id + ее данные
     // потом Я запихаю их в стейст начальным состоянием +
     // 3) потом отправляю этот стейст на сервер с новыми измененными данными и сервер обновляет базу данных +
     // 4) когда мы переходим на главную станицу, я делаю запрос заного к базу данных для получение наших новых постов
-    // и рендерю их 
+    // и рендерю их
     try {
-      if (element) {
+      if (element && data.email === process.env.ADMIN) {
+        const reternedAction = await dispatch(
+          fetchFromAdmin({ element, value })
+        )
+        alert('Вы успешно обновили пост')
+        navigate('/')
+      } else if (!element) {
+        const reternedAction = await dispatch(fetchSendPosts(value))
+        if (!reternedAction.error) {
+          alert('Вы успешно создали пост')
+          navigate('/')
+        }
+      } else if (data.email === 'iftah_abwab@mail.ru' && !element) {
+        const reternedAction = await dispatch(fetchSendPosts(value))
+        if (!reternedAction.error) {
+          alert('Вы успешно создали пост')
+          navigate('/')
+        }
+      } else {
         await axios.patch(`/posts/${id}/edit`, value)
         alert('Вы успешно обновили пост')
         navigate('/')
-      } else {
-        const reternedAction = await dispatch(fetchSendPosts(value))
-        if (!reternedAction.error) {
-          navigate('/')
-        }
       }
     } catch (err) {
       alert('Произошла ошибка при обновление статьи')
     }
   }
 
-  // console.log('value', value);
 
-  // console.log('value',value);
   const options = React.useMemo(
     () => ({
       spellChecker: false,
@@ -141,7 +156,9 @@ export const AddPost = () => {
         size='large'
         onClick={() => inputFileRef.current.click()}
       >
-        { !flagForDownloadImage && 'Загрузить фото' || flagForDownloadImage && !image && 'Изображение загружается !' || image && 'Изображение загрузился !'}
+        {(!flagForDownloadImage && 'Загрузить фото') ||
+          (flagForDownloadImage && !image && 'Изображение загружается !') ||
+          (image && 'Изображение загрузился !')}
       </Button>
       <input
         ref={inputFileRef}
@@ -199,7 +216,7 @@ export const AddPost = () => {
           variant='contained'
           onClick={() => SendPostInServer(value, id)}
         >
-          {element && 'Сохранить' || 'Опубликовать'}
+          {(element && 'Сохранить') || 'Опубликовать'}
         </Button>
         <a href='/'>
           <Button size='large'>Отмена</Button>

@@ -14,8 +14,6 @@ export const FullPost = () => {
 
   const {id} = useParams()
 
-
-  console.log('data',data);
   useEffect(() => {
     try {
       async function Thunk() {
