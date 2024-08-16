@@ -14,7 +14,7 @@ export const Index = () => {
       <div className={styles.root}>
         <Avatar
           classes={{ root: styles.avatar }}
-          src={data.avatarUrl}
+          src={data?.avatarUrl}
         />
         <div className={styles.form}>
           <TextField
