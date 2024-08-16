@@ -73,17 +73,17 @@ export const Home = () => {
             items={[
               {
                 user: {
-                  fullName: 'Со вар им',
+                  fullName: 'Асхьаб Unicode',
                   avatarUrl: 'https://ndelo.ru/media/posts/2017/7/4/pochemu-lyudi-boya/%D1%80%D0%B5%D0%BB%D0%B8%D0%B3%D0%B8%D1%8F.thumb.jpg'
                 },
                 text: 'Ма шаа АЛЛАХ1'
               },
               {
                 user: {
-                  fullName: 'Иван Иванов',
+                  fullName: 'Юсуп Unicode',
                   avatarUrl: 'https://mui.com/static/images/avatar/2.jpg'
                 },
-                text: 'Крутое прилижение ! Я доволен , спасибо Админ !'
+                text: 'Крутое прилижение ! Я доволен !'
               }
             ]}
             isLoading={false}
