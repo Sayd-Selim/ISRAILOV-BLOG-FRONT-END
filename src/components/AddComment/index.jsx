@@ -5,14 +5,16 @@ import styles from "./AddComment.module.scss";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import { useSelector } from "react-redux";
 
 export const Index = () => {
+  const {data} = useSelector(state => state.auth)
   return (
     <>
       <div className={styles.root}>
         <Avatar
           classes={{ root: styles.avatar }}
-          src="https://mui.com/static/images/avatar/5.jpg"
+          src={data.avatarUrl}
         />
         <div className={styles.form}>
           <TextField
