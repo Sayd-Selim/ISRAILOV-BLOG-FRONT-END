@@ -1,48 +1,37 @@
-import React, { useEffect } from 'react'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import Grid from '@mui/material/Grid'
-import axios from '../axios'
-import { useDispatch, useSelector } from 'react-redux'
-import { Post } from '../components/Post'
-import { TagsBlock } from '../components/TagsBlock'
-import { CommentsBlock } from '../components/CommentsBlock'
-import { fetchPosts, fetchTags } from '../redux/posts'
+import React, { useEffect } from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Grid from '@mui/material/Grid';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import axios from '../axios';
+import { Post } from '../components/Post';
+import { TagsBlock } from '../components/TagsBlock';
+import { CommentsBlock } from '../components/CommentsBlock';
+import { fetchPosts, fetchTags } from '../redux/posts';
 
-
-/*
-КАК DISPATCH ЗАСТАВЛЯЕТ ПЕРЕРИСОВАТЬСЯ КОМПОНЕНТ ?
-
-
-1) ПРИ ПЕРВОМ РЕНДЕРЕ ПРОЕКТА ЗАПУСКАЮТСЯ ВСЕ ФАЙЛЫ И ВЫЗЫВАЮТСЯ ВСЕ ФУНКЦИИ КОТОРЫЕ МЫ НАПИСАЛИ ВЫЗВАТЬ, ВКЛЮЧАЯ НАШ useSelector +
-2) ПРИ ВЫЗОВЕ useSelector В НЕЙ СОЗДАЕТСЯ STATE И SETSTATE ПЕРЕДАЕТСЯ В ФУНКЦИЮ subscribe(СЮДА !) +
-3) И subscribe ДОБАВЛЯЕТ ЭТОТ SETSTATE В МАССИВ У СЕБЯ В ЛОГИКЕ +
-4) И ПРИ ВЫЗОВЕ DISPATCH, DISPATCH ВЫЗЫВАЕТ ЭТУ ФУНКЦИЮ ИЗ МАССИВА ТО ЕСТЬ НАШ SETSTATE +
-5) И КОГДА ВЫЗЫВАЕТСЯ SETSTATE ОБНОВЛЯЕТСЯ useSelector, ПОТОМУ ЧТО STATE СОЗДАНА В НЕЙ +
-6) И useSelector ВОЗВРАЩАЕТСЯ С НОВОЙ ССЫЛКОЙ В ТЕ КОМПОНЕНТЫ ГДЕ ОНА БЫЛА ИЗНАЧАЛЬНО ВЫЗВАНА +
-7) И ПОТОМ РЕАКТ ВИДИТ ЧТО В КОМПОНЕНТЕ ПОМЕНЯЛАСЬ ОДНА ССЫЛКА ТО ЕСТЬ ПОЯВИЛАСЬ НОВАЯ ССЫЛКА 
-ТО ОНА ПЕРЕРИСУЕТ ЭТОТ КОМПОНЕНТ 
-
-РЕЗЮМИРУЯ: КОГДА DISPATCH ВЫЗЫВАЕТСЯ ТО useSelector ОБНОВЛЯЕТ СВОЙ КОМПОНЕНТ
-*/ 
 export const Home = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  
+  const { posts, tags } = useSelector((state) => state.posts);
+  const { data } = useSelector((state) => state.auth);
+  const isPostsLoading = posts.status === 'loading';
+  const isTagsLoading = posts.status === 'loading';
 
-  const { posts, tags } = useSelector(state => state.posts)
-  const {data} = useSelector(state => state.auth)
-  const isPostsLoading = posts.status === 'loading'
-  const isTagsLoading = posts.status === 'loading'
-
+  // Используем тему Material-UI
+  const theme = useTheme();
+  // Определяем, если экран маленький (например, мобильный)
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     try {
-      dispatch(fetchPosts())
-      dispatch(fetchTags())
+      dispatch(fetchPosts());
+      dispatch(fetchTags());
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }, [])
-
+  }, [dispatch]);
 
   return (
     <>
@@ -54,18 +43,17 @@ export const Home = () => {
         <Tab label='Новые' />
         <Tab label='Популярные' />
       </Tabs>
-      <Grid container spacing={4}>
-        <Grid xs={8} item>
+      <Grid container spacing={4} direction={isMobile ? 'column' : 'row'}>
+        <Grid xs={12} md={8} item>
           {(isPostsLoading ? [...Array(5)] : posts.items).map((obj, index) =>
-          
             isPostsLoading ? (
-              <Post key={index} isLoading={true}/>
+              <Post key={index} isLoading={true} />
             ) : (
               <Post
+                key={obj._id}
                 _id={obj._id}
                 title={obj.title}
                 imageUrl={obj.imageUrl}
-                // imageUrl='https://res.cloudinary.com/practicaldev/image/fetch/s--UnAfrEG8--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/icohm5g0axh9wjmu4oc3.png'
                 user={obj.user}
                 createdAt={obj.createdAt}
                 viewsCount={obj.viewsCount}
@@ -79,11 +67,8 @@ export const Home = () => {
             )
           )}
         </Grid>
-        <Grid xs={4} item>
-          <TagsBlock
-            items={tags.items}
-            isLoading={isTagsLoading}
-          />
+        <Grid xs={12} md={4} item>
+          <TagsBlock items={tags.items} isLoading={isTagsLoading} />
           <CommentsBlock
             items={[
               {
@@ -106,5 +91,5 @@ export const Home = () => {
         </Grid>
       </Grid>
     </>
-  )
+  );
 }
