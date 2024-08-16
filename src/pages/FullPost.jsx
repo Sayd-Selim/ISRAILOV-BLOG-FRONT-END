@@ -54,18 +54,18 @@ export const FullPost = () => {
         items={[
           {
             user: {
-              fullName: "Вася Пупкин",
-              avatarUrl: "https://mui.com/static/images/avatar/1.jpg",
+              fullName: 'Асхьаб Unicode',
+              avatarUrl: 'https://ndelo.ru/media/posts/2017/7/4/pochemu-lyudi-boya/%D1%80%D0%B5%D0%BB%D0%B8%D0%B3%D0%B8%D1%8F.thumb.jpg'
             },
-            text: "Это тестовый комментарий 555555",
+            text: 'Ма шаа АЛЛАХ1'
           },
           {
             user: {
-              fullName: "Иван Иванов",
-              avatarUrl: "https://mui.com/static/images/avatar/2.jpg",
+              fullName: 'Юсуп Unicode',
+              avatarUrl: 'https://mui.com/static/images/avatar/2.jpg'
             },
-            text: "When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top",
-          },
+            text: 'Крутое прилижение ! Я доволен !'
+          }
         ]}
         isLoading={false}
       >
