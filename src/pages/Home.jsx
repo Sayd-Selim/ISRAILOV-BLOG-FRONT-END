@@ -74,7 +74,7 @@ export const Home = () => {
               {
                 user: {
                   fullName: 'Со вар им',
-                  avatarUrl: 'https://mui.com/static/images/avatar/1.jpg'
+                  avatarUrl: 'https://ndelo.ru/media/posts/2017/7/4/pochemu-lyudi-boya/%D1%80%D0%B5%D0%BB%D0%B8%D0%B3%D0%B8%D1%8F.thumb.jpg'
                 },
                 text: 'Ма шаа АЛЛАХ1'
               },
