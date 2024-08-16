@@ -7,7 +7,7 @@ export const UserInfo = ({ avatarUrl, fullName, additionalText }) => {
       <img className={styles.avatar} src={avatarUrl || '/noavatar.png'} alt={fullName} />
       <div className={styles.userDetails}>
         <span className={styles.userName}>{fullName}</span>
-        <span className={styles.additional}>{additionalText.split('-').reverse().join('-') + 'г'}</span>
+        <span className={styles.additional}>{additionalText.slice(0,10).split('-').reverse().join('-') + 'г'}</span>
       </div>
     </div>
   );
