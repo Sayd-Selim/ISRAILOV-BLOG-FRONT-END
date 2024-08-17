@@ -18,7 +18,7 @@ export const Index = () => {
         />
         <div className={styles.form}>
           <TextField
-            label="Охь яз е комментари натуре"
+            label="Написать комментарий"
             variant="outlined"
             maxRows={10}
             multiline
