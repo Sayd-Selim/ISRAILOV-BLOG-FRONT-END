@@ -105,7 +105,7 @@ export const AddPost = () => {
     // 4) когда мы переходим на главную станицу, я делаю запрос заного к базу данных для получение наших новых постов
     // и рендерю их
     try {
-      if (element && data.email === process.env.ADMIN) {
+      if (element && data.email === 'iftah_abwab@mail.ru') {
         const reternedAction = await dispatch(
           fetchFromAdmin({ element, value })
         )
@@ -117,7 +117,7 @@ export const AddPost = () => {
           alert('Вы успешно создали пост')
           navigate('/')
         }
-      } else if (data.email === process.env.ADMIN && !element) {
+      } else if (data.email === 'iftah_abwab@mail.ru' && !element) {
         const reternedAction = await dispatch(fetchSendPosts(value))
         if (!reternedAction.error) {
           alert('Вы успешно создали пост')
