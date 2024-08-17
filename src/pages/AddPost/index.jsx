@@ -198,7 +198,7 @@ export const AddPost = () => {
         helperText={value.title.length < 10 && 'Необходимо больше 10-и символов для Заголовки' || ''}
       />
       <TextField
-        classes={{ root: styles.tags }}
+        classes={{ root: styles.title }}
         variant='standard'
         placeholder='Тэги'
         fullWidth
