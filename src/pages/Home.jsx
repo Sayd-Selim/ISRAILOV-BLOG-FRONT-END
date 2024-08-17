@@ -60,8 +60,7 @@ export const Home = () => {
                 commentsCount={3}
                 tags={obj.tags}
                 isEditable={
-                  data?.email === 'iftah_abwab@mail.ru' ||
-                  obj.user?._id === data?._id
+                  data?.email === process.env.ADMIN 
                 }
               />
             )
