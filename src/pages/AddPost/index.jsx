@@ -194,6 +194,8 @@ export const AddPost = () => {
         onChange={e => onChangeInput(e.target.value)}
         autoComplete='off'
         value={value.title}
+        error={value.title.length < 10 && true || false}
+        helperText={value.title.length < 10 && 'Необходимо больше 10-и символов для Заголовки' || ''}
       />
       <TextField
         classes={{ root: styles.tags }}
@@ -203,6 +205,8 @@ export const AddPost = () => {
         onChange={e => onChangeTags(e.target.value)}
         autoComplete='off'
         value={value.tags}
+        error={value.tags.length === 0 && true || false}
+        helperText={value.tags.length === 0 && 'Необходимо написать тег (например: Моя история, Знакомства и т.п)' || ''}
       />
       <SimpleMDE
         className={styles.editor}
