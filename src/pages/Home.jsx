@@ -60,7 +60,8 @@ export const Home = () => {
                 commentsCount={3}
                 tags={obj.tags}
                 isEditable={
-                  data?.email === process.env.ADMIN 
+                  data?.email === process.env.ADMIN ||
+                  obj.user?._id === data?._id
                 }
               />
             )
