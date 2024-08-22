@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { Post } from "../components/Post";
 import { Index } from "../components/AddComment";
 import { CommentsBlock } from "../components/CommentsBlock";
@@ -8,30 +7,39 @@ import axios from "../axios";
 import ReactMarkdown from 'react-markdown'
 
 export const FullPost = () => {
-
-  const [data, setData] = useState()
-  const [isLoading, setIsloading] = useState(true)
-
-  const {id} = useParams()
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [comments, setComments] = useState([]); // Отдельное состояние для комментариев
+  const stateIdFroComment = Math.random() * 10000000000000000
+  const { id } = useParams();
 
   useEffect(() => {
-    try {
-      async function Thunk() {
-        const {data} = await axios.get(`/posts/${id}`)
-        setData(data)
-        setIsloading(false)
-       }
-   
-       Thunk()
-    } catch (error) {
-      console.warn(error)
-      alert('Ошибка при получении статьи !')
-    }
-    
-  },[])
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(`/posts/${id}`);
+        setData(data);
+        setComments(data.comments || []); // Инициализируем комментарии
+        setIsLoading(false);
+      } catch (error) {
+        console.warn(error);
+        alert('Ошибка при получении статьи!');
+      }
+    };
 
-  if(isLoading) {
-    return <Post isLoading={isLoading}/>
+    fetchData();
+  }, [id]);
+
+  const handleCommentAdded = (newComment) => {
+    setComments((prevComments) => [...prevComments, newComment]);
+  };
+
+  const DeleteComment = async (paramFromCommentDelete) => {
+     await axios.post(`/posts/${paramFromCommentDelete.postId}/deleteComment`, paramFromCommentDelete)
+    setComments((prevComments) => [...prevComments].filter(elem => elem.commentId !== paramFromCommentDelete.commentId));
+  }
+
+  if (isLoading) {
+    return <Post isLoading={isLoading} />;
   }
 
   return (
@@ -40,37 +48,22 @@ export const FullPost = () => {
         id={data._id}
         title={data.title}
         imageUrl={data.imageUrl}
-        // imageUrl="https://res.cloudinary.com/practicaldev/image/fetch/s--UnAfrEG8--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/icohm5g0axh9wjmu4oc3.png"
         user={data.user}
         createdAt={data.createdAt}
         viewsCount={data.viewsCount}
-        commentsCount={3}
+        commentsCount={comments.length} // Используем длину comments
         tags={data.tags}
         isFullPost
       >
-      <ReactMarkdown children={data.text}/>
+        <ReactMarkdown children={data.text} />
       </Post>
-      <CommentsBlock
-        items={[
-          {
-            user: {
-              fullName: 'Асхьаб Unicode',
-              avatarUrl: 'https://ndelo.ru/media/posts/2017/7/4/pochemu-lyudi-boya/%D1%80%D0%B5%D0%BB%D0%B8%D0%B3%D0%B8%D1%8F.thumb.jpg'
-            },
-            text: 'Ма шаа АЛЛАХ1'
-          },
-          {
-            user: {
-              fullName: 'Юсуп Unicode',
-              avatarUrl: 'https://mui.com/static/images/avatar/2.jpg'
-            },
-            text: 'Крутое прилижение ! Я доволен !'
-          }
-        ]}
-        isLoading={false}
-      >
-        <Index />
+      <CommentsBlock items={comments} isLoading={false} DeleteComment={DeleteComment}>
+        <Index
+          stateIdFroComment={stateIdFroComment}
+          onCommentAdded={handleCommentAdded} // Передаем функцию добавления комментария
+        />
       </CommentsBlock>
     </>
   );
 };
+

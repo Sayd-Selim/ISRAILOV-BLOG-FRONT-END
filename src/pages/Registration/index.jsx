@@ -35,8 +35,6 @@ export const Registration = () => {
   const onSubmit = async data => {
     const reternedAction = await dispatch(fetchRegister(data))
 
-    // console.log('reternedAction.payload?.token', reternedAction.payload)
-    // console.log('data', data)
 
     if (reternedAction.payload?.token) {
       window.localStorage.setItem('token', reternedAction.payload.token)

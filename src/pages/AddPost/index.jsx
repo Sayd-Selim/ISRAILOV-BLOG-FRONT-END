@@ -13,7 +13,7 @@ import {
   fetchUpdatePosts
 } from '../../redux/posts'
 import { useNavigate, useParams } from 'react-router-dom'
-// import logo from '../../../../'
+
 
 export const AddPost = () => {
   const { posts, tags } = useSelector(state => state.posts)

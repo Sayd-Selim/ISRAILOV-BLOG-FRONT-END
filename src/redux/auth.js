@@ -8,11 +8,6 @@ import axios from "../axios"
 export const fetchOnLogin = createAsyncThunk('auth/fetchOnLogin', async (params, {rejectWithValue}) => {
     try {
         const {data} = await axios.post('/auth/login', params)
-        // console.log('/auth/login',data);
-
-        if(!data) {
-            throw 'lf'
-        }
 
         return data
     } catch (error) {
@@ -22,7 +17,7 @@ export const fetchOnLogin = createAsyncThunk('auth/fetchOnLogin', async (params,
 
 export const fetchAuthMe = createAsyncThunk('auth/fetchAuthMe', async () => {
     const {data} = await axios.get('/auth/me')
-    // console.log('/auth/me',data);
+
     return data
 })
 

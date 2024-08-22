@@ -7,8 +7,6 @@ import { useEffect } from 'react'
 import { fetchAuthMe } from './redux/auth'
 
 function App () {
-  const {data} = useSelector(state => state.auth)
-  // const isAuth = Boolean(data);
 
   const dispatch = useDispatch()
 
