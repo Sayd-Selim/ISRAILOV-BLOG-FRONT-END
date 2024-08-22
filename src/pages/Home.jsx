@@ -5,7 +5,6 @@ import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import axios from '../axios';
 import { Post } from '../components/Post';
 import { TagsBlock } from '../components/TagsBlock';
 import { CommentsBlock } from '../components/CommentsBlock';
@@ -57,7 +56,7 @@ export const Home = () => {
                 user={obj.user}
                 createdAt={obj.createdAt}
                 viewsCount={obj.viewsCount}
-                commentsCount={3}
+                commentsCount={obj.comments.length}
                 tags={obj.tags}
                 isEditable={
                   data?.email === 'iftah_abwab@mail.ru' ||
@@ -70,22 +69,7 @@ export const Home = () => {
         <Grid xs={12} md={4} item>
           <TagsBlock items={tags.items} isLoading={isTagsLoading} />
           <CommentsBlock
-            items={[
-              {
-                user: {
-                  fullName: 'Асхьаб',
-                  avatarUrl: 'https://ndelo.ru/media/posts/2017/7/4/pochemu-lyudi-boya/%D1%80%D0%B5%D0%BB%D0%B8%D0%B3%D0%B8%D1%8F.thumb.jpg'
-                },
-                text: 'Ма шаа АЛЛАХ1'
-              },
-              {
-                user: {
-                  fullName: 'Дима',
-                  avatarUrl: 'https://mui.com/static/images/avatar/2.jpg'
-                },
-                text: 'Крутое прилижение ! Я доволен !'
-              }
-            ]}
+            items={posts.items.map(elem => elem.comments[0]).filter(elem => elem !== undefined)}
             isLoading={false}
           />
         </Grid>
