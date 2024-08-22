@@ -76,6 +76,7 @@ export const Registration = () => {
           fullWidth
           error={state.success}
           helperText={state.message}
+          autoComplete='off'
           {...register('fullName', { required: 'Это поле обязательно !' })}
         />
         <TextField
@@ -85,6 +86,7 @@ export const Registration = () => {
           error={state.success}
           helperText={state.message}
           type='email'
+          autoComplete='off'
           {...register('email', { required: 'Это поле обязательно !' })}
         />
         <TextField
@@ -93,6 +95,7 @@ export const Registration = () => {
           fullWidth
           error={state.success}
           helperText={state.message}
+          autoComplete='off'
           {...register('password', { required: 'Это поле обязательно !' })}
         />
         <Button size='large' variant='contained' fullWidth type='submit'>
