@@ -39,7 +39,7 @@ export const CommentsBlock = ({ items = [], children, isLoading = true, DeleteCo
                 <IconButton color="secondary" onClick={() => DeleteComment({postId,commentId})}>
                     <DeleteIcon />
                 </IconButton>
-              ) || authorСomment.email === data?.email && (
+              ) || authorСomment?.email === data?.email && (
                 <IconButton color="secondary" onClick={() => DeleteComment({postId,commentId})}>
                     <DeleteIcon />
                 </IconButton>
