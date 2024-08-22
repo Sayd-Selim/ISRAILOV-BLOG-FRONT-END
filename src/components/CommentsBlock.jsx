@@ -24,7 +24,7 @@ export const CommentsBlock = ({ items = [], children, isLoading = true, DeleteCo
                 {isLoading ? (
                   <Skeleton variant="circular" width={40} height={40} />
                 ) : (
-                  <Avatar alt={authorСomment?.fullName} src={authorСomment?.avatarUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJqxCzhVRrUBUNpyz-e74mtn28OI9fwhLKUUApAeLyxSfN8B61bAE8G11NZanJZC2eAo&usqp=CAU'} />
+                  <Avatar alt={authorСomment?.fullName} src={`${process.env.REACT_APP_API_URL}${authorСomment?.avatarUrl}` || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJqxCzhVRrUBUNpyz-e74mtn28OI9fwhLKUUApAeLyxSfN8B61bAE8G11NZanJZC2eAo&usqp=CAU'} />
                 )}
               </ListItemAvatar>
               {isLoading ? (
