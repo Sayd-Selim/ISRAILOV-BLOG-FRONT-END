@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import DeleteIcon from '@mui/icons-material/Clear';
 import { IconButton } from "@mui/material";
 
-export const CommentsBlock = ({ items = [], children, isLoading = true, DeleteComment }) => {
+export const CommentsBlock = ({ items = [], children, isLoading = true, DeleteComment, permission }) => {
   const { data } = useSelector((state) => state.auth);
 
   return (
@@ -35,11 +35,11 @@ export const CommentsBlock = ({ items = [], children, isLoading = true, DeleteCo
               ) : (
                 <ListItemText primary={authorСomment?.fullName} secondary={comment} />
               )}
-              { data?.email === 'iftah_abwab@mail.ru' && (
+              { permission && data?.email === 'iftah_abwab@mail.ru' && (
                 <IconButton color="secondary" onClick={() => DeleteComment({postId,commentId})}>
                     <DeleteIcon />
                 </IconButton>
-              ) || authorСomment?.email === data?.email && (
+              ) || permission && authorСomment?.email === data?.email && (
                 <IconButton color="secondary" onClick={() => DeleteComment({postId,commentId})}>
                     <DeleteIcon />
                 </IconButton>

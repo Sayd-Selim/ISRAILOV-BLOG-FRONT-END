@@ -57,7 +57,7 @@ export const FullPost = () => {
       >
         <ReactMarkdown children={data.text} />
       </Post>
-      <CommentsBlock items={comments} isLoading={false} DeleteComment={DeleteComment}>
+      <CommentsBlock items={comments} isLoading={false} DeleteComment={DeleteComment} permission={true}>
         <Index
           stateIdFroComment={stateIdFroComment}
           onCommentAdded={handleCommentAdded} // Передаем функцию добавления комментария

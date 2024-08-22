@@ -69,6 +69,7 @@ export const Home = () => {
         <Grid xs={12} md={4} item>
           <TagsBlock items={tags.items} isLoading={isTagsLoading} />
           <CommentsBlock
+           permission={false}
             items={posts.items.map(elem => elem.comments[0]).filter(elem => elem !== undefined)}
             isLoading={false}
           />
