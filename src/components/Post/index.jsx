@@ -15,6 +15,9 @@ import { Checkbox } from '@mui/material'
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
 import Favorite from '@mui/icons-material/Favorite'
 import axios from '../../axios'
+import iconView from '../../icons/views.gif'
+import iconComment from '../../icons/comment.gif'
+
 
 export const Post = ({
   _id,
@@ -32,6 +35,9 @@ export const Post = ({
   isEditable
 }) => {
 
+
+
+
   const { data } = useSelector(state => state.auth);
   const isAuth = Boolean(data);
   const dispatch = useDispatch();
@@ -42,7 +48,8 @@ export const Post = ({
 
   const onClickRemove = async _id => {
     if (isAuth && window.confirm('Вы хотите удалить статью ?')) {
-        dispatch(fetchDeleteOnePost(_id))
+      const reternedAction = await dispatch(fetchDeleteOnePost(_id))
+      console.log('reternedAction', reternedAction)
     }
   }
 
@@ -50,6 +57,7 @@ export const Post = ({
   if (isLoading) {
     return <PostSkeleton />
   }
+
 
 
   // Обработчик изменений для чекбокса
@@ -84,11 +92,11 @@ export const Post = ({
         </div>
       )}
       {imageUrl && (
-        <img
-        className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-        src={`${process.env.REACT_APP_API_URL}${imageUrl}`}
-        alt='Изображение не загружено !'
-      />
+       <img
+       className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
+       src={`${process.env.REACT_APP_API_URL}${imageUrl}`}
+       alt='Изображение не загружено !'
+     />
       )}
       <div className={styles.wrapper}>
         <UserInfo {...user} additionalText={createdAt} />
@@ -109,17 +117,17 @@ export const Post = ({
               ))}
           </ul>
           {children && <div className={styles.content}>{children}</div>}
-          <ul className={styles.postDetails}>
+          <ul className={styles.postDetails} style={{ display: 'flex', alignItems: 'center' }}>
+          <li>
+            <img src={iconView} alt="" width={40} style={{ marginRight: '4px' }} />
+            <span style={{ display: 'block' }}>{viewsCount}</span>
+          </li>
             <li>
-              <EyeIcon style={{ fontSize: 22, color: 'gray' }}/>
-              <span>{viewsCount}</span>
+             <img src={iconComment} alt="" width={40} style={{ marginRight: '4px' }} />
+              <span style={{ display: 'block' }}>{commentsCount}</span>
             </li>
-            <li>
-              <CommentIcon style={{ fontSize: 22, color: 'gray' }}/>
-              <span>{commentsCount}</span>
-            </li>
-            <li>
-            <Checkbox
+            <li >
+              <Checkbox
                 className={checked && stateLike !== 0 ? styles.listItemAnimation : ''}
                 disabled={!isAuth}
                 checked={checked && stateLike !== 0}  // Связываем состояние с компонентом
