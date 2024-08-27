@@ -53,6 +53,7 @@ export const Home = () => {
                 _id={obj._id}
                 title={obj.title}
                 imageUrl={obj.imageUrl}
+                like={obj.like}
                 user={obj.user}
                 createdAt={obj.createdAt}
                 viewsCount={obj.viewsCount}
