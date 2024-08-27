@@ -10,6 +10,7 @@ import Skeleton from '@mui/material/Skeleton'
 import { useSelector } from 'react-redux'
 import DeleteIcon from '@mui/icons-material/Clear'
 import { IconButton } from '@mui/material'
+import styles from './CommentsBlock.module.scss'
 
 export const CommentsBlock = ({
   items = [],
