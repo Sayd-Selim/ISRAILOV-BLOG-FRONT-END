@@ -55,9 +55,18 @@ export const Post = ({
   // Обработчик изменений для чекбокса
   const handleChange = async (event) => {
     setChecked(event.target.checked);
-    await axios.post(`/posts/${_id}/like`, {checked})
+    const {data} = await axios.post(`/posts/${_id}/like`, {checked})
     
-    setStateLike(!checked && stateLike + 1 || stateLike - 1)
+    if(data) {
+      if(!checked) {
+        const likeSound = new Audio('/sounds/like-sound.mp3')
+        likeSound.play()
+      }else {
+        const likeSound = new Audio('/sounds/Delete-like-sound.mp3')
+        likeSound.play()
+      }
+      setStateLike(!checked && stateLike + 1 || stateLike - 1)
+    }
   };
 
   return (
