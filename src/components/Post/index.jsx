@@ -120,9 +120,9 @@ export const Post = ({
             </li>
             <li>
             <Checkbox
-                className={checked && styles.listItemAnimation}
+                className={checked && stateLike !== 0 ? styles.listItemAnimation : ''}
                 disabled={!isAuth}
-                checked={checked}  // Связываем состояние с компонентом
+                checked={checked && stateLike !== 0}  // Связываем состояние с компонентом
                 onChange={handleChange}  // Добавляем обработчик изменений
                 icon={<FavoriteBorder style={{ fontSize: 22, color: 'gray' }} />}
                 checkedIcon={<Favorite style={{ fontSize: 22, color: 'red' }} />}
