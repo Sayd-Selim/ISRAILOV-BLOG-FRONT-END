@@ -1,12 +1,26 @@
 $blue: #4361ee;
 
 .root {
+
   background-color: #fff;
   border: 1px solid #dedede;
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 15px;
   position: relative;
+  animation: shadow-drop-center 0.9s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+
+  @keyframes shadow-drop-center {
+    0% {
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+      transform: scale();
+    }
+
+    100% {
+      box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+    }
+  }
+
 
   &:hover {
     border: 1px solid $blue;
@@ -23,6 +37,20 @@ $blue: #4361ee;
       border: 1px solid #dedede;
       box-shadow: none;
     }
+  }
+}
+
+.listItemAnimation {
+  animation: like 0.9s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite both;
+}
+
+@keyframes like {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.1);
   }
 }
 
