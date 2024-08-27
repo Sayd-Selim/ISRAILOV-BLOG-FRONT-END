@@ -119,7 +119,8 @@ export const Post = ({
               <span>{commentsCount}</span>
             </li>
             <li>
-              <Checkbox
+            <Checkbox
+                className={checked && styles.listItemAnimation}
                 disabled={!isAuth}
                 checked={checked}  // Связываем состояние с компонентом
                 onChange={handleChange}  // Добавляем обработчик изменений
